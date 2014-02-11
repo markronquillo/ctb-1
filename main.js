@@ -1,4 +1,4 @@
-( function() {
+$( function() {
 	// create first a model
 	// create a view for a model
 	// create collection
@@ -42,7 +42,14 @@
   App.Views.Task = Backbone.View.extend({
   	tagName: 'li',
 
+    template: template('taskTemplate'),
+
+    events: {
+    },
+
+
   	render: function() {
+      console.log(this.template(this.model.toJSON()));
   		this.$el.html( this.model.get('title') );
   		return this;
   	}
@@ -62,8 +69,11 @@
 	  	priority: 5
 	  },
   ]);
+
   var tasksView = new App.Views.Tasks({ collection: tasksCollection });
   tasksView.render();
 
   console.log(tasksView.el);
-})();
+
+  $(document.body).append(tasksView.el);
+});
